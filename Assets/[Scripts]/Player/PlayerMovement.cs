@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float XAxisValue, speed, XDP, XJT;
-    [SerializeField] bool alredyUsing;
     void Start()
     {
         
@@ -23,5 +22,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Movement(float amount) {
         transform.position += new Vector3(amount,0,0);
+        if (transform.position.x >= 27.5f) transform.position = new Vector3(-27, transform.position.y, transform.position.z);
+        if (transform.position.x <= -27.5f) transform.position = new Vector3(27, transform.position.y, transform.position.z);
     }
 }
