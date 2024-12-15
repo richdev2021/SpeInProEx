@@ -14,7 +14,6 @@ public class proyectilScript : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.name);
         if (collision.tag == "Enemy") {
             collision.gameObject.SetActive(false);
             Destroy(this.gameObject);

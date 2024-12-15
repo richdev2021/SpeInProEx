@@ -9,18 +9,22 @@ public class PlayerShooting : MonoBehaviour
     public bool TriggerFire;
     private void Update()
     {
+        spamDetect();
+    }
+    private void spamDetect() {
         AntiSpam += 1 * Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Space)|| Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKey(KeyCode.Space))
             if (AntiSpam >= delay)
             {
                 fire();
             }
-            else 
+            else
             {
                 TriggerFire = true;
             }
 
-        if (AntiSpam >= delay) {
+        if (AntiSpam >= delay)
+        {
             AntiSpam = delay;
             if (TriggerFire) fire();
         }
