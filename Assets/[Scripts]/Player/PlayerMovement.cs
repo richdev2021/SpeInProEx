@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void valueSet()
     {
-        XDP = Input.GetAxisRaw("Debug Horizontal");
+        XDP = Input.GetAxisRaw("DpadMovement");
         XJT = Input.GetAxisRaw("Horizontal");
         if ( Mathf.Abs(XDP) >= Mathf.Abs(XJT)) XAxisValue = XDP * (speed * Time.deltaTime); else XAxisValue = XJT * (speed * Time.deltaTime);
     }

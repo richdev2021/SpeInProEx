@@ -6,19 +6,20 @@ public class PlayerShooting : MonoBehaviour
 {
     public GameObject proyectil;
     public float AntiSpam, delay;
+    public ControllerInclusion CI;
     private void Update()
     {
         spamDetect();
     }
     private void spamDetect() {
         AntiSpam += 1 * Time.deltaTime;
-        if (Input.GetKey(KeyCode.Space))
+        if (CI.fireHold())
             if (AntiSpam >= delay)
             {
                 fire();
             }
 
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (CI.FireButton()) {
             if (AntiSpam >= delay)
             {
                 fire();
