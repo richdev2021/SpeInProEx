@@ -14,10 +14,13 @@ public class EnemyProyectilScript : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player"|| collision.tag == "shield")
         {
             collision.gameObject.SetActive(false);
             Destroy(this.gameObject);
+        }
+        if (collision.tag == "PlayerBullet") {
+            Destroy(collision.gameObject);
         }
     }
 }

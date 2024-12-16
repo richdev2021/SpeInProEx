@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
-{
+{   
     public GameObject[] Enemys;
-    public GameObject proyectile;
-    public float Timer, TimeMax,Incrementation, direction, TotalSpeed,ProyectilSpawnTimer,proyectilSpawnMax;
-    public int RandomEnemy, enemyCounter,RandBetfirstAndLast;
+    public GameObject proyectile,player;
+    public float Timer, TimeMax,Incrementation, direction, TotalSpeed,ProyectilSpawnTimer,proyectilSpawnMax,enemyDistance,Distance = 1000;
+    public int RandomEnemy, enemyCounter,RandBetfirstAndLast,nearestEnemy;
     public bool MoveDown, HaveLose, DefineTime, noEnemysLeft;
     private void FixedUpdate()
     {
@@ -91,29 +91,25 @@ public class EnemyManager : MonoBehaviour
         RandomEnemy = Random.RandomRange(0, 83);
         for(int i = 0; i <= Enemys.Length - 1; i++) 
         {
-            if (Enemys[i].active == true) enemyCounter += 1;
+            if (Enemys[i].active == true)
+            {
+                enemyCounter += 1;
+                enemyDistance = Vector2.Distance(player.transform.position, Enemys[i].transform.position);
+                if (enemyDistance <= Distance)
+                {
+                    nearestEnemy = i;
+                    Distance = nearestEnemy;
+                }
+            }
         }
         if (enemyCounter != 0)
         {
-            if (Enemys[RandomEnemy].active == false) {enemyCounter = 0;
-                RandBetfirstAndLast = Random.Range(0, 2);
-                for (int i = 0; i <= Enemys.Length - 1; i++)
-                {
-                    if (RandBetfirstAndLast == 0)
-                    {
-                        if (Enemys[i].active == true) RandomEnemy = i;
-                    }
-                    else
-                    {
-                        if (Enemys[i].active == true)
-                        {
-                            RandomEnemy = i;
-                            i += 1000;
-                        }
-                    }
-                }
+            if (Enemys[RandomEnemy].active == false) {
+                RandomEnemy = nearestEnemy;
             }
             Instantiate(proyectile, Enemys[RandomEnemy].transform.position, Enemys[RandomEnemy].transform.rotation);
+            Distance = 1000;
+            enemyCounter = 0;
         }
     }
 }

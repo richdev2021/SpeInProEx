@@ -6,32 +6,32 @@ public class PlayerShooting : MonoBehaviour
 {
     public GameObject proyectil;
     public float AntiSpam, delay;
-    public bool TriggerFire;
     private void Update()
     {
         spamDetect();
     }
     private void spamDetect() {
         AntiSpam += 1 * Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
             if (AntiSpam >= delay)
             {
                 fire();
             }
-            else
-            {
-                TriggerFire = true;
-            }
 
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            if (AntiSpam >= delay)
+            {
+                fire();
+            }
+        }
         if (AntiSpam >= delay)
         {
             AntiSpam = delay;
-            if (TriggerFire) fire();
         }
+        
     }
     public void fire() {
         Instantiate(proyectil, transform.position,transform.rotation);
-        TriggerFire = false;
         AntiSpam = 0;
     }
 }
