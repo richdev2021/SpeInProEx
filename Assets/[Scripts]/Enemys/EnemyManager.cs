@@ -3,18 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
-{   
+{
     public GameObject[] Enemys;
-    public GameObject proyectile,player;
-    public float Timer, TimeMax,Incrementation, direction, TotalSpeed,ProyectilSpawnTimer,proyectilSpawnMax,enemyDistance,Distance = 1000;
-    public int RandomEnemy, enemyCounter,RandBetfirstAndLast,nearestEnemy;
+    public GameObject proyectile, player;
+    public float Timer, TimeMax, Incrementation, direction, TotalSpeed, ProyectilSpawnTimer, proyectilSpawnMax, enemyDistance, Distance = 1000;
+    public int RandomEnemy, enemyCounter, RandBetfirstAndLast, nearestEnemy, RealLevel;
     public bool MoveDown, HaveLose, DefineTime, noEnemysLeft;
+    public Vector2[] startingPositions;
+    public GameManager GM;
+    private void Start()
+    {
+        for (int j = 0; j <= Enemys.Length - 1; j++) startingPositions[j] = Enemys[j].transform.position;
+        changeLevel(GM.Level);
+    }
     private void FixedUpdate()
     {
+        RealLevel = GM.Level;
         if(HaveLose == false)
         timerFunction();
         ProyectilSpawnTimer += 1 * Time.deltaTime;
         if (ProyectilSpawnTimer >= proyectilSpawnMax) {
+            if(GM.canshoot)
             RandomShooting();
             ProyectilSpawnTimer = 0;
         }
@@ -25,6 +34,7 @@ public class EnemyManager : MonoBehaviour
         {
             Timer = 0;
             verifyPosition();
+            if(GM.canMove)
             movePosition();
             DefineTime = true;
         }
@@ -104,12 +114,41 @@ public class EnemyManager : MonoBehaviour
         }
         if (enemyCounter != 0)
         {
-            if (Enemys[RandomEnemy].active == false) {
+            if (Enemys[RandomEnemy].active == false)
+            {
                 RandomEnemy = nearestEnemy;
             }
             Instantiate(proyectile, Enemys[RandomEnemy].transform.position, Enemys[RandomEnemy].transform.rotation);
             Distance = 1000;
             enemyCounter = 0;
         }
+        else { GM.Level++; RealLevel++; changeLevel(RealLevel); };
+    }
+    public void changeLevel(int level) {
+        backToStart();
+        if (level == 0) {
+            reactivate(11);
+        }
+        if (level == 1) {
+            reactivate(Enemys.Length/4);
+        }
+        if (level == 2) {
+            reactivate((Enemys.Length) / 2);
+        }
+        if (level == 3)
+        {
+            reactivate(((Enemys.Length)/4)*3);
+        }
+        if (level >= 4)
+        {
+            reactivate(Enemys.Length-1);
+        }
+    }
+    public void reactivate(int amount) {
+        for (int i = 0; i < amount; i++)
+            Enemys[i].SetActive(true);
+    }
+    public void backToStart() {
+        for (int j = 0; j <= Enemys.Length - 1; j++) Enemys[j].transform.position = startingPositions[j];
     }
 }

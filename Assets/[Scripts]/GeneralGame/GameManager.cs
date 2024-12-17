@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI tutorial;
     public ControllerInclusion CI;
     public int controllerDetector;
+    public EnemyManager EM;
 
     private void Update()
     {
@@ -34,6 +35,8 @@ public class GameManager : MonoBehaviour
         {
             tutorialStep = 0;
             tutorial.text = ("");
+            iconX.SetActive(false);
+            IconB.SetActive(false);
         }
         
     }
@@ -54,6 +57,7 @@ public class GameManager : MonoBehaviour
             canMove = false;
             canshoot = false;
             IconB.SetActive(false);
+            EM.backToStart();
         }
         if (tutorialStep == 1)
         {
