@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ControllerInclusion : MonoBehaviour
 {
+    public int eventCounter, keyPressVerifier,generalCounter;
+    public Event KeyPressed;
     public bool FireButton() {
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire3")) return true; else return false;
     }
@@ -22,8 +24,26 @@ public class ControllerInclusion : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("pause")) return true; else return false;
     }
     public int DetectTypeOfInput() {
-        if (Input.anyKeyDown) if (controllerKey()) return 1; else return 2; else return 0;
-        
+        if (Input.anyKeyDown) { if (controllerKey()) return 1; else return 2; } else return 0;
+        // if (Input.anyKeyDown) { KeyPressed = Event.current; if (KeyPressed.isKey) { Debug.Log(KeyPressed.keyCode); } }
+        /*if (Input.anyKeyDown)
+        {
+            generalCounter++;
+            keyPressVerifier = eventCounter;
+            Event e = Event.current;
+            if (e.isKey)
+            {
+                if (e.keyCode.ToString() != "None")
+                    eventCounter++;
+            }
+            if (keyPressVerifier < eventCounter)
+            {
+                Debug.Log("keyboard");
+            }
+            else Debug.Log("Controller");
+            eventCounter = 0;
+        }
+        return 10;*/
     }
     public bool controllerKey() {
         if (Input.GetKeyDown(KeyCode.Joystick1Button0)) return true;

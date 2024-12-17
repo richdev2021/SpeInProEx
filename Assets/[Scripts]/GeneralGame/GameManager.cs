@@ -6,12 +6,13 @@ using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
-    public int Level,tutorialStep, typeOfInput;
+    public int Level, tutorialStep, typeOfInput;
     public bool inTutoria, canshoot, canMove;
-    public GameObject iconX,IconB;
-    public Image Xone, Xtwo, Bone, Btwo;
+    public ImageSwitcher[] AdaoptativeImages;
+    public GameObject iconX, IconB;
     public TextMeshProUGUI tutorial;
     public ControllerInclusion CI;
+    public int controllerDetector;
 
     private void Update()
     {
@@ -22,13 +23,19 @@ public class GameManager : MonoBehaviour
         {
             TutorialBasicControlls();
             tutorialProgression();
+            if (CI.DetectTypeOfInput() != 0)
+            {
+                controllerDetector = CI.DetectTypeOfInput();
+                AdaoptativeImages[0].switchImage(controllerDetector);
+                AdaoptativeImages[1].switchImage(controllerDetector);
+            }
         }
         else
         {
             tutorialStep = 0;
             tutorial.text = ("");
         }
-        typeOfInput = CI.DetectTypeOfInput();
+        
     }
     void TutorialBasicControlls() {
         if (CI.FireButton()) tutorialStep += 1;
