@@ -14,10 +14,12 @@ public class GameManager : MonoBehaviour
     public ControllerInclusion CI;
     public int controllerDetector;
     public EnemyManager EM;
+    public UIManager UIM;
 
     private void Update()
     {
         playTutorial();
+        pauseVerify();
     }
     void playTutorial() {
         if (Level == 0)
@@ -89,5 +91,10 @@ public class GameManager : MonoBehaviour
             tutorial.text = "repetir tutorial con: ";
         }
 
+    }
+    public void pauseVerify() {
+        if (CI.pauseButton()) {
+            UIM.PauseGame();
+        }
     }
 }

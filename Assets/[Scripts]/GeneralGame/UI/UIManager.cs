@@ -6,13 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    public GameObject Settings;
+    public GameObject Settings, PauseMenu;
     public TextMeshProUGUI SettingsButtonSaveToogle;
-    public bool settingsActive = false;
+    public bool SettingsActive = false, PauseActive = false;
     public void SettingsToogle() {
-        settingsActive = !settingsActive;
-        Settings.SetActive(settingsActive);
-        if (settingsActive) SettingsButtonSaveToogle.text = "Guardar"; else SettingsButtonSaveToogle.text = "Configuración";
+        SettingsActive = !SettingsActive;
+        Settings.SetActive(SettingsActive);
+        if (SettingsActive) SettingsButtonSaveToogle.text = "Guardar"; else SettingsButtonSaveToogle.text = "Configuración";
+    }
+    public void PauseGame() {
+        PauseActive = !PauseActive;
+        PauseMenu.SetActive(PauseActive);
     }
     public void QuitApp() {
         Application.Quit();

@@ -21,7 +21,7 @@ public class ControllerInclusion : MonoBehaviour
     }
     public bool pauseButton()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("pause")) return true; else return false;
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("pause")) return true; else return false;
     }
     public int DetectTypeOfInput() {
         if (Input.anyKeyDown) { if (controllerKey()) return 1; else return 2; } else return 0;
