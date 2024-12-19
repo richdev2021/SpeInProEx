@@ -21,4 +21,7 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("SampleScene");
     }
+    public void BackToStartMenu() {
+        SceneManager.LoadScene("MainMenuScene");
+    }
 }
