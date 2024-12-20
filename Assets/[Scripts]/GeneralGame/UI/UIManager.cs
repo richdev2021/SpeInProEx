@@ -9,6 +9,29 @@ public class UIManager : MonoBehaviour
     public GameObject Settings, PauseMenu;
     public TextMeshProUGUI SettingsButtonSaveToogle;
     public bool SettingsActive = false, PauseActive = false;
+    [SerializeField]
+    public GameStates currentState; // Estados del juego
+    public PauseSistem manager;
+    void Start()
+    {
+        PauseSistem.GetInstance().GSC += changeGameState;
+    }
+    private void OnEnable()
+    {
+        try
+        {
+            PauseSistem.GetInstance().GSC += changeGameState;
+        }
+        catch { };
+    }
+    private void OnDisable()
+    {
+        PauseSistem.GetInstance().GSC -= changeGameState;
+    }
+    void changeGameState(GameStates _gs)
+    {
+        currentState = _gs;
+    }
     public void SettingsToogle() {
         SettingsActive = !SettingsActive;
         Settings.SetActive(SettingsActive);
@@ -17,6 +40,7 @@ public class UIManager : MonoBehaviour
     public void PauseGame() {
         PauseActive = !PauseActive;
         PauseMenu.SetActive(PauseActive);
+        if (PauseActive) manager.changeGameState(GameStates.PAUSED); else manager.changeGameState(GameStates.INGAME);
     }
     public void QuitApp() {
         Application.Quit();

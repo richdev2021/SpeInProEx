@@ -5,9 +5,30 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float XAxisValue, speed, XDP, XJT;
+    public GameStates currentState; // Estados del juego
+    public PauseSistem manager;
     void Start()
     {
-        
+        PauseSistem.GetInstance().GSC += changeGameState;
+    }
+    private void OnEnable()
+    {
+        try
+        {
+            PauseSistem.GetInstance().GSC += changeGameState;
+        }
+        catch { };
+    }
+    private void OnDisable()
+    {
+        PauseSistem.GetInstance().GSC -= changeGameState;
+    }
+    void changeGameState(GameStates _gs)
+    {
+        //Debug.Log(_gs);
+        currentState = _gs; // Asignar el estado actual del juego
+        if (currentState == GameStates.PAUSED) speed = 0;
+        else if (currentState == GameStates.INGAME) speed = 30; // Actualizar movimiento basado en el estado
     }
     void Update()
     {
