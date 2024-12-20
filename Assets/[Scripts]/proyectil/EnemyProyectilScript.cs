@@ -6,6 +6,7 @@ public class EnemyProyectilScript : MonoBehaviour
 {
     public float lifeTimer = 0;
     public float speed = 10;
+    public ScoreAndHiscoreScriptable SAHS;
     void Update()
     {
         lifeTimer += 1 * Time.deltaTime;
@@ -16,8 +17,12 @@ public class EnemyProyectilScript : MonoBehaviour
     {
         if (collision.tag == "Player"|| collision.tag == "shield")
         {
-            collision.gameObject.SetActive(false);
+            if(collision.tag  == "Player")
+            SAHS.ReduceLives(1);
+            if (collision.tag == "shield") 
+            Destroy(collision.gameObject);
             Destroy(this.gameObject);
+
         }
         if (collision.tag == "PlayerBullet") {
             Destroy(collision.gameObject);

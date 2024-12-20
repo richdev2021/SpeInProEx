@@ -11,6 +11,8 @@ public class EnemyManager : MonoBehaviour
     public bool MoveDown, HaveLose, DefineTime, noEnemysLeft;
     public Vector2[] startingPositions;
     public GameManager GM;
+    public ScoreAndHiscoreScriptable SAHS;
+    public ScoreManager SM;
     private void Start()
     {
         for (int j = 0; j <= Enemys.Length - 1; j++) startingPositions[j] = Enemys[j].transform.position;
@@ -122,7 +124,7 @@ public class EnemyManager : MonoBehaviour
             Distance = 1000;
             enemyCounter = 0;
         }
-        else { GM.Level++; RealLevel++; changeLevel(RealLevel); };
+        else { GM.Level++; RealLevel++; changeLevel(RealLevel); SAHS.Rounds = RealLevel; SM.SetRounds(0, RealLevel); };
     }
     public void changeLevel(int level) {
         backToStart();

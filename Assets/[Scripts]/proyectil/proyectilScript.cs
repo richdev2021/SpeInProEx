@@ -6,6 +6,7 @@ public class proyectilScript : MonoBehaviour
 {
     public float lifeTimer = 0;
     public float speed = 25;
+    public ScoreAndHiscoreScriptable SAHS;
     void Update()
     {
         lifeTimer += 1* Time.deltaTime;
@@ -15,6 +16,7 @@ public class proyectilScript : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Enemy"|| collision.tag == "shield") {
+            if (collision.tag == "Enemy") SAHS.AddScore(10);
             collision.gameObject.SetActive(false);
             Destroy(this.gameObject);
         }

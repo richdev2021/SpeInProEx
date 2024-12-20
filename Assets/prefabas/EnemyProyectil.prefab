@@ -173,3 +173,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeTimer: 0
   speed: 10
+  SAHS: {fileID: 11400000, guid: 12a9a9886bfe8864f905c0834fb8375e, type: 2}
