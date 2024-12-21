@@ -7,8 +7,10 @@ public class PlayerShooting : MonoBehaviour
     public GameObject proyectil;
     public float AntiSpam, delay;
     public ControllerInclusion CI;
+    public PlayerMovement PLM;
     private void Update()
     {
+        if(PLM.speed != 0)
         spamDetect();
     }
     private void spamDetect() {

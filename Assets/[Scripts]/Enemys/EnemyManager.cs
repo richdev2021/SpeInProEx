@@ -8,26 +8,53 @@ public class EnemyManager : MonoBehaviour
     public GameObject proyectile, player;
     public float Timer, TimeMax, Incrementation, direction, TotalSpeed, ProyectilSpawnTimer, proyectilSpawnMax, enemyDistance, Distance = 1000;
     public int RandomEnemy, enemyCounter, RandBetfirstAndLast, nearestEnemy, RealLevel;
-    public bool MoveDown, HaveLose, DefineTime, noEnemysLeft;
+    public bool MoveDown, HaveLose, DefineTime, noEnemysLeft,DoAnithing;
     public Vector2[] startingPositions;
     public GameManager GM;
     public ScoreAndHiscoreScriptable SAHS;
     public ScoreManager SM;
+
+    public GameStates currentState;
+    public PauseSistem manager;
+    private void OnEnable()
+    {
+        try
+        {
+            PauseSistem.GetInstance().GSC += changeGameState;
+        }
+        catch { };
+    }
+    private void OnDisable()
+    {
+        PauseSistem.GetInstance().GSC -= changeGameState;
+    }
+    void changeGameState(GameStates _gs)
+    {
+        //Debug.Log(_gs);
+        currentState = _gs; // Asignar el estado actual del juego
+        if (currentState == GameStates.PAUSED) { DoAnithing = false; }
+        else if (currentState == GameStates.INGAME) { DoAnithing = true; }; // Actualizar movimiento basado en el estado
+    }
     private void Start()
     {
+        PauseSistem.GetInstance().GSC += changeGameState;
         for (int j = 0; j <= Enemys.Length - 1; j++) startingPositions[j] = Enemys[j].transform.position;
         changeLevel(GM.Level);
     }
     private void FixedUpdate()
     {
-        RealLevel = GM.Level;
-        if(HaveLose == false)
-        timerFunction();
-        ProyectilSpawnTimer += 1 * Time.deltaTime;
-        if (ProyectilSpawnTimer >= proyectilSpawnMax) {
-            if(GM.canshoot)
-            RandomShooting();
-            ProyectilSpawnTimer = 0;
+        if (DoAnithing)
+        {
+            RealLevel = GM.Level;
+            if (HaveLose == false)
+                timerFunction();
+            ProyectilSpawnTimer += 1 * Time.deltaTime;
+            if (ProyectilSpawnTimer >= proyectilSpawnMax)
+            {
+                if (GM.canshoot)
+                    RandomShooting();
+                ProyectilSpawnTimer = 0;
+            }
         }
     }
     private void timerFunction() {

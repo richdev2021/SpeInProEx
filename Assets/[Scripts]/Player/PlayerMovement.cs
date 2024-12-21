@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float XAxisValue, speed, XDP, XJT;
+    [SerializeField]public float XAxisValue, speed, XDP, XJT;
     public GameStates currentState; // Estados del juego
     public PauseSistem manager;
+    public ProyectilMessager PM;
     void Start()
     {
         PauseSistem.GetInstance().GSC += changeGameState;
+        manager.changeGameState(GameStates.INGAME);
     }
     private void OnEnable()
     {
         try
         {
             PauseSistem.GetInstance().GSC += changeGameState;
+            manager.changeGameState(GameStates.INGAME);
         }
         catch { };
     }
@@ -27,13 +30,13 @@ public class PlayerMovement : MonoBehaviour
     {
         //Debug.Log(_gs);
         currentState = _gs; // Asignar el estado actual del juego
-        if (currentState == GameStates.PAUSED) speed = 0;
-        else if (currentState == GameStates.INGAME) speed = 30; // Actualizar movimiento basado en el estado
+        if (currentState == GameStates.PAUSED) { speed = 0; PM.SetNotInGame(true); }
+        else if (currentState == GameStates.INGAME) { speed = 30; PM.SetNotInGame(false); }; // Actualizar movimiento basado en el estado
     }
     void Update()
     {
-        valueSet();
-        Movement(XAxisValue);
+            valueSet();
+            Movement(XAxisValue);   
     }
     void valueSet()
     {

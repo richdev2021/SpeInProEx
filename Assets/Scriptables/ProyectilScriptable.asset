@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78cf1fe88eee98b478725afa03e85a92, type: 3}
-  m_Name: ScoreAndHiscoreMain
+  m_Script: {fileID: 11500000, guid: ce6e8e10c1c9fed4d8c39ec37a1cb01e, type: 3}
+  m_Name: ProyectilScriptable
   m_EditorClassIdentifier: 
-  Score: 220
-  Hiscore: 220
-  Lives: 5
-  Rounds: 1
+  Ingame: 0
