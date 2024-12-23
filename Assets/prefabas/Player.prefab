@@ -175,3 +175,6 @@ MonoBehaviour:
   speed: 30
   XDP: 0
   XJT: 0
+  currentState: 0
+  manager: {fileID: 0}
+  PM: {fileID: 0}

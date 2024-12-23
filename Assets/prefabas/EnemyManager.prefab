@@ -11446,10 +11446,18 @@ MonoBehaviour:
   enemyCounter: 0
   RandBetfirstAndLast: 0
   nearestEnemy: 0
+  RealLevel: 0
   MoveDown: 0
   HaveLose: 0
   DefineTime: 0
   noEnemysLeft: 0
+  DoAnithing: 0
+  startingPositions: []
+  GM: {fileID: 0}
+  SAHS: {fileID: 0}
+  SM: {fileID: 0}
+  currentState: 0
+  manager: {fileID: 0}
 --- !u!1 &7256007825645152419
 GameObject:
   m_ObjectHideFlags: 0
