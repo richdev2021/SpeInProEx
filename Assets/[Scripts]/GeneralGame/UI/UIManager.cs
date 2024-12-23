@@ -14,7 +14,11 @@ public class UIManager : MonoBehaviour
     public PauseSistem manager;
     void Start()
     {
-        PauseSistem.GetInstance().GSC += changeGameState;
+        try
+        {
+            PauseSistem.GetInstance().GSC += changeGameState;
+        }
+        catch { }
     }
     private void OnEnable()
     {
@@ -26,7 +30,11 @@ public class UIManager : MonoBehaviour
     }
     private void OnDisable()
     {
-        PauseSistem.GetInstance().GSC -= changeGameState;
+        try
+        {
+            PauseSistem.GetInstance().GSC -= changeGameState;
+        }
+        catch { }
     }
     void changeGameState(GameStates _gs)
     {
