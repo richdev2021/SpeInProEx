@@ -176,3 +176,5 @@ MonoBehaviour:
   SAHS: {fileID: 11400000, guid: 12a9a9886bfe8864f905c0834fb8375e, type: 2}
   PM: {fileID: 11400000, guid: 03af7121595e22d49a05e788281b8484, type: 2}
   Stop: 0
+  ShieldParticles: {fileID: 6545564176303588723, guid: 80b120094b965c44987d40e5a96ec04f, type: 3}
+  EnemyParticles: {fileID: 5120336544824778711, guid: 0b34e2974bea15c458cc6a75634741ae, type: 3}

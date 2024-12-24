@@ -9,6 +9,7 @@ public class EnemyProyectilScript : MonoBehaviour
     public ScoreAndHiscoreScriptable SAHS;
     public bool Stop;
     public ProyectilMessager PM;
+    public GameObject PlayerPartiocles, ShieldParticles,bulletParticles;
     void Update()
     {
         Stop = PM.Ingame;
@@ -23,15 +24,20 @@ public class EnemyProyectilScript : MonoBehaviour
     {
         if (collision.tag == "Player"|| collision.tag == "shield")
         {
-            if(collision.tag  == "Player")
-            SAHS.ReduceLives(1);
+            if (collision.tag == "Player")
+            {
+                SAHS.ReduceLives(1);
+                Instantiate(PlayerPartiocles,this.transform,true);
+            }
             if (collision.tag == "shield") 
             Destroy(collision.gameObject);
+            Instantiate(ShieldParticles, this.transform,true); ;
             Destroy(this.gameObject);
 
         }
         if (collision.tag == "PlayerBullet") {
             Destroy(collision.gameObject);
+            Instantiate(bulletParticles,this.transform,true);
         }
     }
 }

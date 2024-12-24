@@ -177,6 +177,9 @@ MonoBehaviour:
   SAHS: {fileID: 11400000, guid: 12a9a9886bfe8864f905c0834fb8375e, type: 2}
   Stop: 0
   PM: {fileID: 11400000, guid: 03af7121595e22d49a05e788281b8484, type: 2}
+  PlayerPartiocles: {fileID: 3828363544365473937, guid: 89b45152826e5f04c8293cc351b1a6f6, type: 3}
+  ShieldParticles: {fileID: 6545564176303588723, guid: 80b120094b965c44987d40e5a96ec04f, type: 3}
+  bulletParticles: {fileID: 537585238992158903, guid: 892d4942d588a8643b904a6e10ad5ad2, type: 3}
 --- !u!108 &4512869665007290323
 Light:
   m_ObjectHideFlags: 0
