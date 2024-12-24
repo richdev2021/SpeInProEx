@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     public GameObject[] Enemys;
+    public SpriteRenderer[] ESR;
     public GameObject proyectile, player;
     public float Timer, TimeMax, Incrementation, direction, TotalSpeed, ProyectilSpawnTimer, proyectilSpawnMax, enemyDistance, Distance = 1000;
     public int RandomEnemy, enemyCounter, RandBetfirstAndLast, nearestEnemy, RealLevel;
@@ -170,7 +171,7 @@ public class EnemyManager : MonoBehaviour
         }
         if (level >= 4)
         {
-            reactivate(Enemys.Length-1);
+            reactivate(Enemys.Length);
         }
     }
     public void reactivate(int amount) {
