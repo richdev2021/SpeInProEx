@@ -14,6 +14,7 @@ public class EnemyManager : MonoBehaviour
     public GameManager GM;
     public ScoreAndHiscoreScriptable SAHS;
     public ScoreManager SM;
+    public AudioSource OwnSource;
 
     public GameStates currentState;
     public PauseSistem manager;
@@ -129,6 +130,8 @@ public class EnemyManager : MonoBehaviour
     }
     private void RandomShooting() {
         RandomEnemy = Random.RandomRange(0, 83);
+        OwnSource.pitch = Random.Range(3.0f, 1f);
+        OwnSource.PlayOneShot(OwnSource.clip);
         for(int i = 0; i <= Enemys.Length - 1; i++) 
         {
             if (Enemys[i].active == true)

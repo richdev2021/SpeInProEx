@@ -8,6 +8,7 @@ public class PlayerShooting : MonoBehaviour
     public float AntiSpam, delay;
     public ControllerInclusion CI;
     public PlayerMovement PLM;
+    public AudioSource OwnSource;
     private void Update()
     {
         if(PLM.speed != 0)
@@ -36,5 +37,7 @@ public class PlayerShooting : MonoBehaviour
     public void fire() {
         Instantiate(proyectil, transform.position,transform.rotation);
         AntiSpam = 0;
+        OwnSource.pitch = Random.Range(3.0f,0.2f);
+        OwnSource.PlayOneShot(OwnSource.clip);
     }
 }
