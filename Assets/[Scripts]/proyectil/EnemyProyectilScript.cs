@@ -27,17 +27,17 @@ public class EnemyProyectilScript : MonoBehaviour
             if (collision.tag == "Player")
             {
                 SAHS.ReduceLives(1);
-                Instantiate(PlayerPartiocles,this.transform,true);
+                Instantiate(PlayerPartiocles,transform.position,transform.rotation);
             }
             if (collision.tag == "shield") 
             Destroy(collision.gameObject);
-            Instantiate(ShieldParticles, this.transform,true); ;
+            Instantiate(ShieldParticles, transform.position,transform.rotation); ;
             Destroy(this.gameObject);
 
         }
         if (collision.tag == "PlayerBullet") {
             Destroy(collision.gameObject);
-            Instantiate(bulletParticles,this.transform,true);
+            Instantiate(bulletParticles,transform.position,transform.rotation);
         }
     }
 }

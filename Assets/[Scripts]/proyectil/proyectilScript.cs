@@ -25,7 +25,7 @@ public class proyectilScript : MonoBehaviour
         if (collision.tag == "Enemy"|| collision.tag == "shield") {
             if (collision.tag == "Enemy") SAHS.AddScore(10);
             collision.gameObject.SetActive(false);
-            if (collision.tag == "Enemy") Instantiate(EnemyParticles,this.transform,true); else Instantiate(ShieldParticles,this.transform,true);
+            if (collision.tag == "Enemy") Instantiate(EnemyParticles,transform.position,transform.rotation); else Instantiate(ShieldParticles,transform.position,transform.rotation);
             Destroy(this.gameObject);
         }
     }
