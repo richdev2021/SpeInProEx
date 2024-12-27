@@ -1,3 +1,5 @@
+using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,13 +10,14 @@ public class EnemyManager : MonoBehaviour
     public SpriteRenderer[] ESR;
     public GameObject proyectile, player;
     public float Timer, TimeMax, Incrementation, direction, TotalSpeed, ProyectilSpawnTimer, proyectilSpawnMax, enemyDistance, Distance = 1000;
-    public int RandomEnemy, enemyCounter, RandBetfirstAndLast, nearestEnemy, RealLevel;
+    public int RandomEnemy, enemyCounter, RandBetfirstAndLast, nearestEnemy, RealLevel,SavedValue;
     public bool MoveDown, HaveLose, DefineTime, noEnemysLeft,DoAnithing;
     public Vector2[] startingPositions;
     public GameManager GM;
     public ScoreAndHiscoreScriptable SAHS;
     public ScoreManager SM;
     public AudioSource OwnSource;
+    public float[][] SavedPosition;
 
     public GameStates currentState;
     public PauseSistem manager;
@@ -129,8 +132,8 @@ public class EnemyManager : MonoBehaviour
         }
     }
     private void RandomShooting() {
-        RandomEnemy = Random.RandomRange(0, 83);
-        OwnSource.pitch = Random.Range(3.0f, 1f);
+        RandomEnemy = UnityEngine.Random.Range(0, 83);
+        OwnSource.pitch = UnityEngine.Random.Range(3.0f, 1f);
         OwnSource.PlayOneShot(OwnSource.clip);
         for(int i = 0; i <= Enemys.Length - 1; i++) 
         {
@@ -184,4 +187,40 @@ public class EnemyManager : MonoBehaviour
     public void backToStart() {
         for (int j = 0; j <= Enemys.Length - 1; j++) Enemys[j].transform.position = startingPositions[j];
     }
+    public void EnemyAvailableSave() {
+        StringBuilder enemysToSave = new StringBuilder();
+        StringBuilder positionsToSave = new StringBuilder();
+        for (int i = 0; i < Enemys.Length; i++) { 
+            if (Enemys[i].active)
+            {
+                enemysToSave.Append(i);
+                enemysToSave.Append("/");
+                positionsToSave.Append(Enemys[i].transform.position.x);
+                positionsToSave.Append("/");
+                positionsToSave.Append(Enemys[i].transform.position.y);
+                positionsToSave.Append("/");
+            }
+        }
+        SAHS.enemys = enemysToSave.ToString();
+        SAHS.ActiveEnemysPos = positionsToSave.ToString();
+        Debug.Log(enemysToSave.ToString());
+    }
+    public void ResumeGame() {
+        string[] ActiveEnemys = SAHS.enemys.Split("/");
+        string[] enemysPosRaw = SAHS.ActiveEnemysPos.Split("/");
+        SavedValue = Int16.Parse(ActiveEnemys[0]);
+        int PIV = 0;
+        int PTV = 0;
+        for (int i = 0; i < Enemys.Length; i++)
+        {
+            if (SavedValue == i) { 
+                Enemys[i].transform.position = new Vector2(float.Parse(enemysPosRaw[PTV]), float.Parse(enemysPosRaw[PTV+1]));
+                Enemys[i].SetActive(true);
+                PIV++;
+                PTV = PTV + 2;
+                SavedValue = Int16.Parse(ActiveEnemys[PIV]); 
+            }
+        }
+    }
+
 }
