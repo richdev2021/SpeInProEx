@@ -29,8 +29,8 @@ public class EnemyProyectilScript : MonoBehaviour
                 SAHS.ReduceLives(1);
                 Instantiate(PlayerPartiocles,transform.position,transform.rotation);
             }
-            if (collision.tag == "shield") 
-            Destroy(collision.gameObject);
+            if (collision.tag == "shield")
+                collision.gameObject.SetActive(false);
             Instantiate(ShieldParticles, transform.position,transform.rotation); ;
             Destroy(this.gameObject);
 

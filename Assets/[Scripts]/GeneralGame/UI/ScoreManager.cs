@@ -21,6 +21,7 @@ public class ScoreManager : MonoBehaviour
         SetScore(0);
         addToHiscore(FScore);
         SetRounds(0, FRounds);
+        rounds.text = "Round: " + FRounds;
     }
     public void FixedUpdate()
     {
@@ -57,7 +58,7 @@ public class ScoreManager : MonoBehaviour
             if (FLives > i) lives[i].SetActive(true); else lives[i].SetActive(false);
             Debug.Log(i + " " +FLives);
         }
-        if (FLives == 0) SceneManager.LoadScene("GameOverScene");
+        if (FLives == 0) { FLives = 6; SAHS.Lives = 6; SceneManager.LoadScene("GameOverScene"); }
     }
     public void SetRounds(int operation, int RoundsToCompare)
     {

@@ -9,8 +9,8 @@ public class EnemyManager : MonoBehaviour
     public GameObject[] Enemys;
     public SpriteRenderer[] ESR;
     public GameObject proyectile, player;
-    public float Timer, TimeMax, Incrementation, direction, TotalSpeed, ProyectilSpawnTimer, proyectilSpawnMax, enemyDistance, Distance = 1000;
-    public int RandomEnemy, enemyCounter, RandBetfirstAndLast, nearestEnemy, RealLevel,SavedValue;
+    public float Timer, TimeMax, Incrementation, direction, TotalSpeed, ProyectilSpawnTimer, proyectilSpawnMax, enemyDistance, Distance = 1000, SavedValue;
+    public int RandomEnemy, enemyCounter, RandBetfirstAndLast, nearestEnemy, RealLevel;
     public bool MoveDown, HaveLose, DefineTime, noEnemysLeft,DoAnithing;
     public Vector2[] startingPositions;
     public GameManager GM;
@@ -184,6 +184,10 @@ public class EnemyManager : MonoBehaviour
         for (int i = 0; i < amount; i++)
             Enemys[i].SetActive(true);
     }
+    public void deactivateAll() {
+        for (int i = 0; i < Enemys.Length; i++)
+            Enemys[i].SetActive(false);
+    }
     public void backToStart() {
         for (int j = 0; j <= Enemys.Length - 1; j++) Enemys[j].transform.position = startingPositions[j];
     }
@@ -195,30 +199,46 @@ public class EnemyManager : MonoBehaviour
             {
                 enemysToSave.Append(i);
                 enemysToSave.Append("/");
-                positionsToSave.Append(Enemys[i].transform.position.x);
+                positionsToSave.Append((Enemys[i].transform.position.x));
                 positionsToSave.Append("/");
-                positionsToSave.Append(Enemys[i].transform.position.y);
+                positionsToSave.Append((Enemys[i].transform.position.y));
                 positionsToSave.Append("/");
             }
         }
+        SAHS.RTS = RealLevel;
         SAHS.enemys = enemysToSave.ToString();
         SAHS.ActiveEnemysPos = positionsToSave.ToString();
+        SAHS.direction = direction;
+        SAHS.SaveAll();
         Debug.Log(enemysToSave.ToString());
     }
     public void ResumeGame() {
-        string[] ActiveEnemys = SAHS.enemys.Split("/");
-        string[] enemysPosRaw = SAHS.ActiveEnemysPos.Split("/");
-        SavedValue = Int16.Parse(ActiveEnemys[0]);
-        int PIV = 0;
-        int PTV = 0;
-        for (int i = 0; i < Enemys.Length; i++)
-        {
-            if (SavedValue == i) { 
-                Enemys[i].transform.position = new Vector2(float.Parse(enemysPosRaw[PTV]), float.Parse(enemysPosRaw[PTV+1]));
-                Enemys[i].SetActive(true);
-                PIV++;
-                PTV = PTV + 2;
-                SavedValue = Int16.Parse(ActiveEnemys[PIV]); 
+        if (SAHS.enemys != null) {
+            SAHS.loadAll();
+            deactivateAll();
+            direction = SAHS.direction;
+            RealLevel = SAHS.RTS;
+            GM.Level = SAHS.RTS;
+            SM.SetRounds(0, SAHS.RTS);
+            string[] ActiveEnemys = SAHS.enemys.Split("/");
+            string[] enemysPosRaw = SAHS.ActiveEnemysPos.Split("/");
+            SavedValue = float.Parse(ActiveEnemys[0]);
+            int PIV = 0;
+            int PTV = 0;
+            for (int i = 0; i < Enemys.Length; i++)
+            {
+                if (SavedValue == i)
+                {
+                    Enemys[i].transform.position = new Vector2(float.Parse(enemysPosRaw[PTV]), float.Parse(enemysPosRaw[PTV + 1]));
+                    Enemys[i].SetActive(true);
+                    PIV++;
+                    PTV = PTV + 2;
+                    if (ActiveEnemys[PIV] != "" || ActiveEnemys[PIV] != null) ;
+                    SavedValue = float.Parse(ActiveEnemys[PIV]);
+                }
+                else {
+                    Enemys[i].SetActive(false);
+                }
             }
         }
     }
