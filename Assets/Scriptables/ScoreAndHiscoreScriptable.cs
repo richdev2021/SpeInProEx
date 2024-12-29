@@ -6,7 +6,8 @@ public class ScoreAndHiscoreScriptable : ScriptableObject {
     // Start is called before the first frame update
     public float Score, Hiscore,direction;
     public int Lives, Rounds,RTS;
-    public string enemys, ActiveEnemysPos;
+    public string enemys, ActiveEnemysPos,shields;
+    public bool PressedContinue;
     public static string PPS = "Score", PPHS = "HiScore", PPL = "Lives", PPR = "Rounds", AE = "EnemigosEnEscena", AEP = "EnemyPos",DIR = "Direction";
     public void AddScore(float Addedscore)
     {

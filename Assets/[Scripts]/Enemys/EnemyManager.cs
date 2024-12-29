@@ -17,6 +17,7 @@ public class EnemyManager : MonoBehaviour
     public ScoreAndHiscoreScriptable SAHS;
     public ScoreManager SM;
     public AudioSource OwnSource;
+    public ShieldsManager SHM;
     public float[][] SavedPosition;
 
     public GameStates currentState;
@@ -45,6 +46,12 @@ public class EnemyManager : MonoBehaviour
         PauseSistem.GetInstance().GSC += changeGameState;
         for (int j = 0; j <= Enemys.Length - 1; j++) startingPositions[j] = Enemys[j].transform.position;
         changeLevel(GM.Level);
+        if (SAHS.PressedContinue) {
+            ResumeGame();
+            SHM.activateSavedShields();
+            SAHS.PressedContinue = false;
+
+        }
     }
     private void FixedUpdate()
     {
@@ -59,6 +66,8 @@ public class EnemyManager : MonoBehaviour
                 if (GM.canshoot)
                     RandomShooting();
                 ProyectilSpawnTimer = 0;
+                GM.canMove = true;
+                GM.canshoot = true;
             }
         }
     }
@@ -179,6 +188,10 @@ public class EnemyManager : MonoBehaviour
         {
             reactivate(Enemys.Length);
         }
+        if(level >= 5)
+        {
+            SHM.reactivateAll();
+        }
     }
     public void reactivate(int amount) {
         for (int i = 0; i < amount; i++)
@@ -209,6 +222,7 @@ public class EnemyManager : MonoBehaviour
         SAHS.enemys = enemysToSave.ToString();
         SAHS.ActiveEnemysPos = positionsToSave.ToString();
         SAHS.direction = direction;
+        SHM.GetActiveShields();
         SAHS.SaveAll();
         Debug.Log(enemysToSave.ToString());
     }
@@ -220,6 +234,7 @@ public class EnemyManager : MonoBehaviour
             RealLevel = SAHS.RTS;
             GM.Level = SAHS.RTS;
             SM.SetRounds(0, SAHS.RTS);
+            SHM.activateSavedShields();
             string[] ActiveEnemys = SAHS.enemys.Split("/");
             string[] enemysPosRaw = SAHS.ActiveEnemysPos.Split("/");
             SavedValue = float.Parse(ActiveEnemys[0]);
@@ -234,7 +249,7 @@ public class EnemyManager : MonoBehaviour
                     PIV++;
                     PTV = PTV + 2;
                     if (ActiveEnemys[PIV] != "" || ActiveEnemys[PIV] != null) ;
-                    SavedValue = float.Parse(ActiveEnemys[PIV]);
+                    SavedValue = float.Parse(ActiveEnemys[PIV]); 
                 }
                 else {
                     Enemys[i].SetActive(false);

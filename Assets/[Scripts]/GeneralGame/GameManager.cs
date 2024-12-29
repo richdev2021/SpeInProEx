@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         playTutorial();
         pauseVerify();
     }
-    void playTutorial() {
+    public void playTutorial() {
         if (Level == 0)
         {
             TutorialBasicControlls();

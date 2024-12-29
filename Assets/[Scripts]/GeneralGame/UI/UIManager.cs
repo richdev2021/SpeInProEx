@@ -60,4 +60,7 @@ public class UIManager : MonoBehaviour
     public void BackToStartMenu() {
         SceneManager.LoadScene("MainMenuScene");
     }
+    public void continueGame() { 
+        
+    }
 }
