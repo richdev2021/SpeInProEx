@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
@@ -80,10 +81,16 @@ public class EnemyManager : MonoBehaviour
             if(GM.canMove)
             movePosition();
             DefineTime = true;
+            if (HaveLose) {
+                SAHS.NewGame();
+                SceneManager.LoadScene("GameOverScene");
+            }
         }
         if (DefineTime)
         {
-            TotalSpeed = (TimeMax * Incrementation)/3;
+            TotalSpeed = ((TimeMax/(RealLevel+1)) * Incrementation)/3;
+            if(RealLevel > 4)
+                TotalSpeed = ((TimeMax / (RealLevel*2)) * Incrementation) / 3;
             Incrementation = 0;
             DefineTime = false;
         }

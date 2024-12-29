@@ -12,6 +12,10 @@ public class ScoreAndHiscoreScriptable : ScriptableObject {
     public void AddScore(float Addedscore)
     {
         Score += Addedscore;
+        if (Score > Hiscore) {
+            Hiscore = Score;
+            hiScoreSave();
+        }
     }
     public void ReduceLives(int ReducedLives) {
         Lives -= ReducedLives;
@@ -25,11 +29,13 @@ public class ScoreAndHiscoreScriptable : ScriptableObject {
         ActiveEnemysPos = null;
         SaveAll();
     }
+    public void hiScoreSave() {
+        PlayerPrefs.SetFloat(PPHS, Hiscore);
+    }
     public void SaveAll() {
         PlayerPrefs.SetFloat(PPS,Score);
         PlayerPrefs.SetInt(PPL, Lives);
         PlayerPrefs.SetInt(PPR, RTS);
-        PlayerPrefs.SetFloat(PPHS, Hiscore);
         PlayerPrefs.SetString(AE, enemys);
         PlayerPrefs.SetString(AEP, ActiveEnemysPos);
         PlayerPrefs.SetFloat(DIR, direction);
@@ -39,7 +45,6 @@ public class ScoreAndHiscoreScriptable : ScriptableObject {
         PlayerPrefs.GetFloat(PPS, Score);
         PlayerPrefs.GetInt(PPL, Lives);
         PlayerPrefs.GetInt(PPR, Rounds);
-        PlayerPrefs.GetFloat(PPHS, Hiscore);
         PlayerPrefs.GetString(AE, enemys);
         PlayerPrefs.GetString(AEP, ActiveEnemysPos);
         PlayerPrefs.GetFloat(DIR, direction);
