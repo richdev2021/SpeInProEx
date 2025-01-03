@@ -62,7 +62,7 @@ public class EnemyManager : MonoBehaviour
             if (HaveLose == false)
                 timerFunction();
             ProyectilSpawnTimer += 1 * Time.deltaTime;
-            if (ProyectilSpawnTimer >= proyectilSpawnMax)
+            if (ProyectilSpawnTimer >= proyectilSpawnMax/(RealLevel+1))
             {
                 if (GM.canshoot)
                     RandomShooting();
