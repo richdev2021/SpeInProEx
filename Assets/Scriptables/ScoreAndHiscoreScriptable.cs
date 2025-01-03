@@ -49,5 +49,8 @@ public class ScoreAndHiscoreScriptable : ScriptableObject {
         PlayerPrefs.GetString(AEP, ActiveEnemysPos);
         PlayerPrefs.GetFloat(DIR, direction);
     }
+    public void setContinue(bool Value) {
+        PressedContinue = Value;
+    }
 
 }

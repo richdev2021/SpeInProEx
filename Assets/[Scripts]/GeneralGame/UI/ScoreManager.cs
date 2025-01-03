@@ -54,10 +54,10 @@ public class ScoreManager : MonoBehaviour
         {
             FLives += livesToCompare;
         }
-        Debug.Log("LiveSet");
+      //  Debug.Log("LiveSet");
         for (int i = -0; i <= lives.Length-1; i++) {
             if (FLives > i) lives[i].SetActive(true); else lives[i].SetActive(false);
-            Debug.Log(i + " " +FLives);
+            //Debug.Log(i + " " +FLives);
         }
         if (FLives == 0) { FLives = 6; SAHS.NewGame(); SceneManager.LoadScene("GameOverScene"); }
     }

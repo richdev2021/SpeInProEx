@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: ProyectilScriptable
   m_EditorClassIdentifier: 
   Ingame: 0
+  volume: 85
+  efects: 85

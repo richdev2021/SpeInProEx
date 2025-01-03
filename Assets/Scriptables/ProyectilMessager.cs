@@ -6,20 +6,16 @@ public class ProyectilMessager : ScriptableObject
 {
    public bool Ingame;
     public float volume, efects;
+    private static string Vol = "volume", FX = "efects"; 
     public void SetNotInGame(bool isInGame) {
         Ingame = isInGame;
     }
-    public void AddQuantity(bool SFX) {
-        if(!SFX)
-            volume += 4;
-        if (SFX)
-            efects += 4;
+    public void SaveVolume() {
+        PlayerPrefs.SetFloat(Vol, volume);
+        PlayerPrefs.SetFloat(FX, efects);
     }
-    public void SubstractQuantity(bool SFX)
-    {
-        if (!SFX)
-            volume -= 4;
-        if (SFX)
-            efects -= 4;
+    public void LoadVolume() {
+        PlayerPrefs.GetFloat(Vol, volume);
+        PlayerPrefs.GetFloat(FX, efects);
     }
 }
